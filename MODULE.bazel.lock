@@ -1,6 +1,6 @@
 {
   "lockFileVersion": 3,
-  "moduleFileHash": "c237eb2075f95370236fb05f9b8f05f02e460f9b0fcfbabd5511b7f662f52434",
+  "moduleFileHash": "6a51eff9af6427f3e130c74a2513a4299eafab0e84d4dc082b134c85a347531a",
   "flags": {
     "cmdRegistries": [
       "https://bcr.bazel.build/"
@@ -27,7 +27,7 @@
       ],
       "extensionUsages": [
         {
-          "extensionBzlFile": "@rules_fish//rules_fish:extension.bzl",
+          "extensionBzlFile": "@rules_fish//fish:extension.bzl",
           "extensionName": "download_fish",
           "usingModule": "<root>",
           "location": {
@@ -1070,14 +1070,14 @@
     }
   },
   "moduleExtensions": {
-    "//rules_fish:extension.bzl%download_fish": {
+    "//fish:extension.bzl%download_fish": {
       "general": {
-        "bzlTransitiveDigest": "SfWsn2uXf47yRObBXzHPExvOHZT8LJQNKm+7/k1JM3k=",
+        "bzlTransitiveDigest": "qNsOcFumIdoaKsDXh5ry/Q1kBLXQtahpZpm6q2hQHoA=",
         "accumulatedFileDigests": {},
         "envVariables": {},
         "generatedRepoSpecs": {
           "fish_toolchains": {
-            "bzlFile": "@@//rules_fish:download.bzl",
+            "bzlFile": "@@//fish:download.bzl",
             "ruleClassName": "fish_multiple_toolchains",
             "attributes": {
               "name": "_main~download_fish~fish_toolchains",

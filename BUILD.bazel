@@ -1,4 +1,4 @@
-load("//rules_fish:fish.bzl", "fish_binary")
+load("//fish:defs.bzl", "fish_binary")
 
 fish_binary(
     name = "demo",

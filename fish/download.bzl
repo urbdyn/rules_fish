@@ -38,7 +38,7 @@ fish_multiple_toolchains = repository_rule(
         "sha256": attr.string(default = "614c9f5643cd0799df391395fa6bbc3649427bb839722ce3b114d3bbc1a3b250"),
         "_fish_build_file": attr.label(
             # TODO: this label will break
-            default = Label("//rules_fish:BUILD.fish.bazel"),
+            default = Label("//fish:BUILD.fish.bazel"),
         ),
     },
 )
@@ -57,7 +57,7 @@ def _pcre2_download(repository_ctx, urls, sha256, version):
     repository_ctx.template(
         "pcre2/BUILD.bazel",
         # TODO: this label will break
-        repository_ctx.path(Label("//rules_fish:BUILD.pcre2.bazel")),
+        repository_ctx.path(Label("//fish:BUILD.pcre2.bazel")),
         executable = False,
         substitutions = {
             # TODO: this will need to be configurable based on ...
@@ -150,7 +150,7 @@ fish_toolchain(
     ],
     toolchain = ":fish_linux",
     toolchain_type = ":toolchain_type",
-    # toolchain_type = "//rules_fish:toolchain_type",
+    # toolchain_type = "//fish:toolchain_type",
 )
 """)
     return struct(
@@ -164,7 +164,7 @@ def fish_toolchains_build_file_content(repository_ctx, versions):
     repository_ctx.file(
         "toolchain.bzl",
         # TODO: this label will break
-        repository_ctx.read(Label("//rules_fish:fish_toolchain.bzl")),
+        repository_ctx.read(Label("//fish:fish_toolchain.bzl")),
         executable = False,
     )
 
