@@ -1,0 +1,62 @@
+load("@rules_foreign_cc//foreign_cc:defs.bzl", "cmake")
+
+package(default_visibility = ["//visibility:public"])
+
+# TODO(mbenson): pair down deps to source code - would be best to automate
+filegroup(
+    name = "srcs",
+    srcs = glob(["**"]),
+)
+
+# TODO: improve this build target to get "normal" cmake targets from normal install dirs, but
+# also pulling files from tmpdirs like libfishlib.a and fish_test_helper. They may be useful in the future.
+
+cmake(
+    name = "fish",
+    lib_source = ":srcs",
+    generate_args = [
+        "-DFISH_USE_SYSTEM_PCRE2=ON",  # controls whether cmake will git fetch pcre2 and build it or if ON, use provided pcre2
+        "-DMAC_CODESIGN_ID=OFF",
+        "-DWITH_GETTEXT=OFF",  # TODO: support gettext as a dep in toolchain
+        "-DSYS_PCRE2_LIB=$(execpath //pcre2:pcre2_static)",
+    ],
+    deps = [
+        "//pcre2:pcre2",
+    ],
+    data = [
+        "//pcre2:pcre2_static",
+    ],
+    install = True,
+    out_binaries = [
+        "fish",
+        "fish_indent",
+        "fish_key_reader",
+        # "fish_test_helper", # TODO: this isn't installed to the copy_fish dir, but may be needed for testing releases...
+    ],
+    out_shared_libs = [],
+    # out_static_libs = ["libfishlib.a"],
+    out_static_libs = [],
+    # TODO: needs --noincompatible_sandbox_hermetic_tmp
+    # share and etc dirs of data dirs are broken because fish build/install is making symlinks that are broken.
+    # see tracking issue: https://github.com/bazelbuild/rules_foreign_cc/issues/1129
+    # There may be a fix coming in bazel 7.2, but there are some workarounds suggested in the issue.
+    # Our general improvements to the toolchain may resolve the issue too.
+    out_data_dirs = [
+        "etc",
+        "share",
+    ],
+)
+
+config_setting(
+    name = "windows",
+    constraint_values = ["@platforms//os:windows"],
+)
+
+filegroup(
+    name = "fish_bin",
+    srcs = [":fish"],
+    output_group = select({
+        ":windows": "fish.exe",
+        "//conditions:default": "fish",
+    }),
+)

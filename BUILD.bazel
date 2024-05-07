@@ -1,0 +1,6 @@
+load("//rules_fish:fish.bzl", "fish_binary")
+
+fish_binary(
+    name = "demo",
+    srcs = ["demo.fish"],
+)
