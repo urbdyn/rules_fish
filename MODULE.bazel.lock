@@ -1072,7 +1072,7 @@
   "moduleExtensions": {
     "//fish:extension.bzl%download_fish": {
       "general": {
-        "bzlTransitiveDigest": "qNsOcFumIdoaKsDXh5ry/Q1kBLXQtahpZpm6q2hQHoA=",
+        "bzlTransitiveDigest": "QqC0nJ2sQxkfg8oREBYR2eKNN2E/wpSU4tmyHLFPh90=",
         "accumulatedFileDigests": {},
         "envVariables": {},
         "generatedRepoSpecs": {
