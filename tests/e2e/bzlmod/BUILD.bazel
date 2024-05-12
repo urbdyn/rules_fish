@@ -1,0 +1,11 @@
+load("@fish_toolchains//fish:defs.bzl", "fish_binary")
+
+fish_binary(
+    name = "hello_world",
+    srcs = ["hello_world.fish"],
+)
+
+fish_binary(
+    name = "interactive",
+    srcs = ["interactive.fish"],
+)

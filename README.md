@@ -9,14 +9,15 @@ including documentation and features beyond a simple `fish_binary` rule. See the
 issues for more information.
 
 To run an interactive demo of Fish shell being built from source and executing in the
-bazel execroot, run `bazel run --noincompatible_sandbox_hermetic_tmp //:demo`.
+bazel execroot, run `bazel run --noincompatible_sandbox_hermetic_tmp //:interactive`
+from the `tests/e2e/bzlmod` directory.
 
 > NOTE: Only a Linux x86_64 toolchain is provided today and executing on other platforms
   is a no-op.
 
-You can also build Fish directly and run the binary file:
+You can also build Fish directly and run the binary file from the `bzlmod` directory:
 
 ```sh
 bazel build --noincompatible_sandbox_hermetic_tmp @fish_toolchains//fish:fish
-./bazel-bin/external/_main~download_fish~fish_toolchains/fish/fish/bin/fish --private
+bazel-bin/external/rules_fish~override~fish_shell~fish_toolchains/fish/fish/bin/fish --private
 ```
