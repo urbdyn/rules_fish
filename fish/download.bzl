@@ -29,6 +29,28 @@ def _fish_multiple_toolchains_impl(repository_ctx):
         executable = False,
     )
 
+    print("static repository files")
+    repository_ctx.file(
+        "fish/defs.bzl",
+        repository_ctx.read(Label("//fish:defs.bzl")),
+        executable = False,
+    )
+    repository_ctx.file(
+        "fish/fish_wrapper.sh",
+        repository_ctx.read(Label("//fish:fish_wrapper.sh")),
+        executable = False,  # this file should only be used in templates, not executed directly
+    )
+    repository_ctx.file(
+        "fish/bazel.fish",
+        repository_ctx.read(Label("//fish:bazel.fish")),
+        executable = False,
+    )
+    repository_ctx.file(
+        "fish/rlocation.sh",
+        repository_ctx.read(Label("//fish:rlocation.sh")),
+        executable = False,
+    )
+
 fish_multiple_toolchains = repository_rule(
     implementation = _fish_multiple_toolchains_impl,
     attrs = {
@@ -37,7 +59,6 @@ fish_multiple_toolchains = repository_rule(
         "urls": attr.string_list(default = ["https://github.com/fish-shell/fish-shell/releases/download/{version}/fish-{version}.tar.xz"]),
         "sha256": attr.string(default = "614c9f5643cd0799df391395fa6bbc3649427bb839722ce3b114d3bbc1a3b250"),
         "_fish_build_file": attr.label(
-            # TODO: this label will break
             default = Label("//fish:BUILD.fish.bazel"),
         ),
     },
@@ -56,7 +77,6 @@ def _pcre2_download(repository_ctx, urls, sha256, version):
 
     repository_ctx.template(
         "pcre2/BUILD.bazel",
-        # TODO: this label will break
         repository_ctx.path(Label("//fish:BUILD.pcre2.bazel")),
         executable = False,
         substitutions = {
@@ -163,7 +183,6 @@ def fish_toolchains_build_file_content(repository_ctx, versions):
 
     repository_ctx.file(
         "toolchain.bzl",
-        # TODO: this label will break
         repository_ctx.read(Label("//fish:toolchain.bzl")),
         executable = False,
     )
@@ -187,4 +206,6 @@ def fish_toolchains_build_file_content(repository_ctx, versions):
 
 def fish_register_toolchains(version = None):
     print("fish_register_toolchains")
+
+    # TODO: this needs plumbing to accept and use a repo name
     fish_download_release("fish", register_toolchains = True, version = version)

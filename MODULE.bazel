@@ -5,11 +5,6 @@ bazel_dep(name = "rules_foreign_cc", version = "0.10.1")
 bazel_dep(name = "bazel_skylib", version = "1.6.1")
 bazel_dep(name = "platforms", version = "0.0.9")
 
-fish = use_extension("//fish:extension.bzl", "download_fish")
-fish.toolchain(version = "3.7.1")
-use_repo(fish, "fish_toolchains")
-register_toolchains("@fish_toolchains//:all")
-
 # We will need the rust toolchain for fish 3.8.0+ we could take inspiration from bazel-lsp repo:
 # https://github.com/cameron-martin/bazel-lsp/blob/master/MODULE.bazel
 # rust = use_extension("@rules_rust//rust:extensions.bzl", "rust")
