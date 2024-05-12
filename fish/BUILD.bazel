@@ -1,8 +1,8 @@
-load(":fish_toolchain.bzl", "fish_toolchain")
+load(":toolchain.bzl", "fish_toolchain")
 
 package(default_visibility = ["//visibility:private"])
 
-exports_files(["fish_wrapper.sh", "rlocation.sh", "bazel.fish", "extension.bzl", "fish_toolchain.bzl"])
+exports_files(["fish_wrapper.sh", "rlocation.sh", "bazel.fish", "extension.bzl", "toolchain.bzl"])
 
 toolchain_type(
     name = "toolchain_type",

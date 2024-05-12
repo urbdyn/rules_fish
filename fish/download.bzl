@@ -164,7 +164,7 @@ def fish_toolchains_build_file_content(repository_ctx, versions):
     repository_ctx.file(
         "toolchain.bzl",
         # TODO: this label will break
-        repository_ctx.read(Label("//fish:fish_toolchain.bzl")),
+        repository_ctx.read(Label("//fish:toolchain.bzl")),
         executable = False,
     )
 
