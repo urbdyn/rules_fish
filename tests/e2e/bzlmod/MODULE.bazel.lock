@@ -1,6 +1,6 @@
 {
   "lockFileVersion": 3,
-  "moduleFileHash": "02e9e6a73ee3f5b6fbe48e5fd957d9f9abf5d19a1266bd5b32df5648469a5157",
+  "moduleFileHash": "710f3d3bd6057eaca5120c40c10bf5ac94f41790883fc36e48d61df224ab4d86",
   "flags": {
     "cmdRegistries": [
       "https://bcr.bazel.build/"
@@ -33,7 +33,7 @@
           "usingModule": "<root>",
           "location": {
             "file": "@@//:MODULE.bazel",
-            "line": 16,
+            "line": 14,
             "column": 21
           },
           "imports": {
@@ -49,7 +49,7 @@
               "devDependency": false,
               "location": {
                 "file": "@@//:MODULE.bazel",
-                "line": 17,
+                "line": 15,
                 "column": 15
               }
             }
@@ -1187,7 +1187,7 @@
     },
     "@@rules_fish~override//fish:extension.bzl%fish_shell": {
       "general": {
-        "bzlTransitiveDigest": "8GDDE8ILnfgamFrK3e8BIXwkenuaRj0yTw/6aUcZBT4=",
+        "bzlTransitiveDigest": "VZVtEg37JX/edxDiNyQdT0PXRABpuux0BvrU0bqPjvc=",
         "accumulatedFileDigests": {},
         "envVariables": {},
         "generatedRepoSpecs": {

@@ -50,6 +50,11 @@ def _fish_multiple_toolchains_impl(repository_ctx):
         repository_ctx.read(Label("//fish:rlocation.sh")),
         executable = False,
     )
+    repository_ctx.file(
+        "fish/validate_test.sh",
+        repository_ctx.read(Label("//fish:validate_test.sh")),
+        executable = True,
+    )
 
 fish_multiple_toolchains = repository_rule(
     implementation = _fish_multiple_toolchains_impl,
