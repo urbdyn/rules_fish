@@ -31,11 +31,10 @@ cmake(
         "fish",
         "fish_indent",
         "fish_key_reader",
-        # "fish_test_helper", # TODO: this isn't installed to the copy_fish dir, but may be needed for testing releases...
+        "../../fish.build_tmpdir/fish_test_helper",
     ],
     out_shared_libs = [],
-    # out_static_libs = ["libfishlib.a"],
-    out_static_libs = [],
+    out_static_libs = ["../../fish.build_tmpdir/libfishlib.a"],
     # TODO: needs --noincompatible_sandbox_hermetic_tmp
     # share and etc dirs of data dirs are broken because fish build/install is making symlinks that are broken.
     # see tracking issue: https://github.com/bazelbuild/rules_foreign_cc/issues/1129
@@ -45,6 +44,40 @@ cmake(
         "etc",
         "share",
     ],
+)
+
+cmake(
+    name = "cmake_test",
+    lib_source = ":srcs",
+    generate_args = [
+        "-DFISH_USE_SYSTEM_PCRE2=ON",
+        "-DMAC_CODESIGN_ID=OFF",
+        "-DWITH_GETTEXT=OFF",
+        "-DSYS_PCRE2_LIB=$(execpath //pcre2:pcre2_static)",
+    ],
+    build_args = ["--target", "test"],
+    deps = [
+        "//pcre2:pcre2",
+    ],
+    data = [
+        "//pcre2:pcre2_static",
+    ],
+    # NOTE: these are not binaries, but not any other great way to capture this with cmake rule
+    out_binaries = [
+        "../../cmake_test_foreign_cc/CMake.log",
+        "../../cmake_test.build_tmpdir/Testing/Temporary/LastTest.log",
+        "../../cmake_test.build_tmpdir/Testing/Temporary/CTestCostData.txt",
+    ],
+    out_shared_libs = [],
+    out_static_libs = [],
+    out_include_dir = "",
+)
+
+sh_test(
+    name = "test",
+    srcs = ["validate_test.sh"],
+    args = ["$(locations :cmake_test)"],
+    data = [":cmake_test"],
 )
 
 config_setting(
